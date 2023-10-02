@@ -42,7 +42,7 @@ function MessageComponent({ message }: Props) {
               isUser && "text-right"
             )}
           >
-            {new Date(message.created_at).toLocaleDateString()}
+            {new Date(message.created_at).toDateString()}
           </p>
         </div>
       </div>
