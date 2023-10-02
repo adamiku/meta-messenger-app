@@ -25,7 +25,7 @@ function ChatInput() {
       created_at: Date.now(),
       username: "Yoyo Hola",
       profilePic:
-        "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
+        "https://img.freepik.com/premium-vector/young-smiling-man-avatar-man-with-brown-beard-mustache-hair-wearing-yellow-sweater-sweatshirt-3d-vector-people-character-illustration-cartoon-minimal-style_365941-860.jpg",
       email: "user@test.com",
     };
 
@@ -52,7 +52,7 @@ function ChatInput() {
   return (
     <form
       onSubmit={addMessage}
-      className="flex px-10 py-5 space-x-2 border-t border-gray-100 fixed bottom-0 z-50 w-full"
+      className="flex px-10 py-5 space-x-2 border-t border-gray-100 fixed bottom-0 z-50 w-full bg-white"
     >
       <input
         value={input}

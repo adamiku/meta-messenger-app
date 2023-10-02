@@ -1,3 +1,4 @@
+import { serverPusher } from "@/pusher";
 import redis from "@/redis";
 import { NextResponse } from "next/server";
 
@@ -23,6 +24,7 @@ export async function POST(
   // push to upstash
   try {
     await redis.hset("messages", message.id, JSON.stringify(newMessage));
+    serverPusher.trigger("messages", "new-message", newMessage);
     return NextResponse.json({ message: newMessage }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ body: "Something went wrong" });
