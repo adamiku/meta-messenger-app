@@ -1,12 +1,18 @@
+"use client";
+
 import clsx from "clsx";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import ReactTimeago from "react-timeago";
 
 type Props = {
   message: Message;
 };
 
 function MessageComponent({ message }: Props) {
-  const isUser = true;
+  const { data: session } = useSession();
+  const isUser = session?.user?.email === message.email;
+
   return (
     <div className={clsx("flex w-fit", isUser && "ml-auto")}>
       <div className={clsx("shrink-0", isUser && "order-2")}>
@@ -42,7 +48,10 @@ function MessageComponent({ message }: Props) {
               isUser && "text-right"
             )}
           >
-            {new Date(message.created_at).toDateString()}
+            <ReactTimeago
+              suppressHydrationWarning
+              date={new Date(message.created_at)}
+            />
           </p>
         </div>
       </div>

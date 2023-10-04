@@ -1,5 +1,8 @@
 import ChatInput from "@/components/ChatInput";
 import MessageList from "@/components/MessageList";
+import { getServerSession } from "next-auth";
+
+export const dynamic = "force-dynamic";
 
 async function HomePage() {
   const data = await fetch(
@@ -7,11 +10,12 @@ async function HomePage() {
   ).then((res) => res.json());
 
   const messages: Message[] = data.messages;
+  const session = await getServerSession();
 
   return (
     <main>
       <MessageList initialMessages={messages} />
-      <ChatInput />
+      <ChatInput session={session} />
     </main>
   );
 }

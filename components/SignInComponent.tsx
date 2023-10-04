@@ -6,8 +6,7 @@ type Props = {
   providers: Awaited<ReturnType<typeof getProviders>>;
 };
 
-function SIgnInComponent({ providers }: Props) {
-  console.log(providers);
+function SignInComponent({ providers }: Props) {
   return (
     <div className="flex justify-center">
       {Object.values(providers!).map((provider) => (
@@ -28,4 +27,4 @@ function SIgnInComponent({ providers }: Props) {
   );
 }
 
-export default SIgnInComponent;
+export default SignInComponent;

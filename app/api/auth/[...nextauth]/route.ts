@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-// import FacebookProvider from "next-auth/providers/facebook";
 import GithubProvider from "next-auth/providers/github";
 
 const handler = NextAuth({

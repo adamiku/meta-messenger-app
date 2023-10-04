@@ -1,17 +1,22 @@
 "use client";
 
 import fetcher from "@/lib/fetchMessages";
+import type { Session } from "next-auth";
 import { FormEvent, useState } from "react";
 import useSWR from "swr";
 import { v4 as uuid } from "uuid";
 
-function ChatInput() {
+type Props = {
+  // session: ReturnType<typeof getServerSession>;
+  session: Session | null;
+};
+
+function ChatInput({ session }: Props) {
   const [input, setInput] = useState("");
   const { data: messages, error, mutate } = useSWR("/api/getMessages", fetcher);
   const addMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!input) return;
-
+    if (!input || !session) return;
     // optimistic update
     const messageToSend = input;
     setInput("");
@@ -22,10 +27,10 @@ function ChatInput() {
       id,
       message: messageToSend,
       created_at: Date.now(),
-      username: "Yoyo Hola",
+      username: session?.user?.name!,
       profilePic:
         "https://img.freepik.com/premium-vector/young-smiling-man-avatar-man-with-brown-beard-mustache-hair-wearing-yellow-sweater-sweatshirt-3d-vector-people-character-illustration-cartoon-minimal-style_365941-860.jpg",
-      email: "user@test.com",
+      email: session?.user?.email!,
     };
 
     const uploadMessageToUpstash = async () => {
@@ -55,6 +60,7 @@ function ChatInput() {
     >
       <input
         value={input}
+        disabled={!session}
         onChange={(e) => setInput(e.target.value)}
         className="flex-1 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent px-5 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
         placeholder="Enter a message here..."

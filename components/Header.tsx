@@ -1,9 +1,10 @@
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 
-function Header() {
-  const session = true;
+async function Header() {
+  const session = await getServerSession();
   if (session) {
     return (
       <header className="sticky top-0 z-50 bg-white flex justify-between items-center p-10 shadow-sm">
@@ -17,7 +18,7 @@ function Header() {
           />
           <div>
             <p className="text-ble-400">Logged in as:</p>
-            <p className="font-bold text-lg">Miku</p>
+            <p className="font-bold text-lg">{session.user?.name}</p>
           </div>
         </div>
         <LogoutButton />
