@@ -9,6 +9,8 @@ type ErrorData = {
   body: string;
 };
 
+export const dynamic = "force-dynamic";
+
 export async function GET(): Promise<NextResponse<ResponseData | ErrorData>> {
   try {
     const messagesResponse = await redis.hvals("messages");
